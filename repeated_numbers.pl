@@ -1,15 +1,23 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w -q
+
 use Data::Dumper;
+use BTREE;
+use strict;
+print "creating a binary tree with 600 nodes...\n";
+my $T = BTREE->new(600);
+unless ($T){
+    print "something's wrong...: $!\n";
+}
 
-use binarytree;
+print "dumping class reference...\n";
+Dumper (%$T) or die $!;
 
-my $root = binarytree::Tree(0);
+print "creating random nodes inside the tree\n";
+my $i = 0;
+while($i < 20){
+    $T->insert((int rand(1000)));
+    $i++;
+}
+print "done.\nDumping data...";
 
-print Dumper(%$root);
-
-my $node = binarytree::Tree(1);
-
-print Dumper($#node);
-
-my $info = "HOLA!";
-$root->binarytree::ileft($root->{LEFT},$info);
+Dumper (%$T);
